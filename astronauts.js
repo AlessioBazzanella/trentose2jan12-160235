@@ -48,4 +48,17 @@ router.post('/', function (req, res) {
     res.json(newAstronauts);
 });
 
+// Ritorna un astronauta per id
+router.get('/:astronautID', function (req, res) {
+    const astronautID = req.params.astronautID;
+    const i = astronauts.findIndex(function (item) {
+        return item.id === astronautID;
+    });
+    if (i === -1) res.sendStatus(404);
+    else {
+        res.status = 200;
+        res.json(astronauts[i])
+    }
+});
+
 module.exports = router;
