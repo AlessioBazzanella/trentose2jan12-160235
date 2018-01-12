@@ -7,6 +7,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+const astronauts = require('./astronauts');
+app.use('/astronauts', astronauts);
+
 app.set('port', (process.env.PORT || 5000));
 
 app.listen(app.get('port'), function () {
