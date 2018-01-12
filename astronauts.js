@@ -61,4 +61,23 @@ router.get('/:astronautID', function (req, res) {
     }
 });
 
+// Modifica i dati di un astronauta per id
+router.put('/:astronautID', function (req, res) {
+    const astronautID = req.params.astronautID;
+    const i = astronauts.findIndex(function (item) {
+        return item.id === astronautID;
+    });
+    if ('firstName' in req.body) {
+        astronauts[i].firstName = req.body.firstName;
+    }
+    if ('lastName' in req.body) {
+        astronauts[i].lastName = req.body.lastName;
+    }
+    if ('isInSpace' in req.body) {
+        req.body.isInSpace === "true" ? astronauts[i].isInSpace = true : astronauts[i].isInSpace = false;
+    }
+
+    res.json(astronauts[i])
+});
+
 module.exports = router;
