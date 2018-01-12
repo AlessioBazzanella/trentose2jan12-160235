@@ -1,80 +1,96 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: https://trentose2jan12-160235.herokuapp.com
 
 # trentose2jan12-160235
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Esame Ingegneria del Software 2 - 12 gennaio 2018
 
-## Questions Collection [/questions]
+## Lista Astronauti [/astronauts]
 
-### List All Questions [GET]
+### Lista di tutti gli astronauti [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
+                "firstName": "Alberto",
+                "lastName": "A",
+                "id": "d553defe-9efc-4aa9-9c1a-05e2ee4e523e",
+                "isInSpace": true
+            },
+            {
+                "firstName": "Federica",
+                "lastName": "B",
+                "id": "c380eaff-82b4-4661-a3d5-a4c122b6c766",
+                "isInSpace": true
+            },
+            {
+                "firstName": "Mario",
+                "lastName": "C",
+                "id": "0e801d76-f131-4a77-8da5-a963ead1e577",
+                "isInSpace": false
             }
         ]
 
-### Create a New Question [POST]
+## Creazione Astronauta [/astronauts]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+### Creazione di un astronauta [POST]
+
+Per poter creare un astronauta biogna passare un form con i campi firstName, lastName e isInSpace
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "firstName": "Nome",
+            "lastName": "Cognome",
+            "isInSpace": "true"
         }
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
-    + Headers
+        {
+            "firstName": "Nome",
+            "lastName": "Cognome",
+            "id": "0e801d76-f131-4a77-8da5-a963ead1e577",
+            "isInSpace": true
+        }
+        
+## Ricerca [/astronauts?lastName={lastName}]
 
-            Location: /questions/2
+### Ricerca astronauta per cognome [GET]
 
-    + Body
++ Parameters
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
+    + lastName - Cognome da cercare
+
++ Response 200 (application/json)
+
+        {
+            "firstName": "Nome",
+            "lastName": "Cognome",
+            "id": "0e801d76-f131-4a77-8da5-a963ead1e577",
+            "isInSpace": true
+        }
+
+## Modifica [/astronauts/{id}]
+
+### Ricerca astronauta per cognome [PUT]
+
++ Parameters
+
+    + id - Identificativo astronauta
+
++ Request (application/json)
+
+        {
+            "isInSpace": "false"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "firstName": "Nome",
+            "lastName": "Cognome",
+            "id": "0e801d76-f131-4a77-8da5-a963ead1e577",
+            "isInSpace": false
+        }
