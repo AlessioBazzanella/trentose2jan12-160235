@@ -26,9 +26,21 @@ const astronauts = [
     }
 ];
 
-// Ritorna tutti gli astronauti
+// Get astronauti
 router.get('/', function (req, res) {
-    res.json(astronauts);
+    if ('lastName' in req.query) {
+        // Ricerca astronauti per cognome
+        var astronautsSearch = [];
+        astronauts.forEach(function (astronaut) {
+            if (astronaut.lastName === req.query.lastName) {
+                astronautsSearch.push(astronaut);
+            }
+        });
+        res.json(astronautsSearch);
+    } else {
+        // Ritorna tutti gli astronauti
+        res.json(astronauts);
+    }
 });
 
 // Creazione di un astronauta
